@@ -10,8 +10,37 @@ Open NetBeans and create a new project:
 
 Choose **Gradle** Category and **Single Gradle Project**
 
+![Pick Gradle->Single Gradle Project][groovy__new_project_2]
 
+Enter the name of the project: **GroovyMicroservice** and the main class: **microservice.Main**
+
+![Enter the name and main class][groovy__new_project_3]
+
+Then click **Finish**
 
 [groovy__new_project_1]: docs/images/groovy__new_project_1.png
-
+[groovy__new_project_2]: docs/images/groovy__new_project_2.png
+[groovy__new_project_3]: docs/images/groovy__new_project_3.png
+[groovy__reload_project_1]: docs/images/groovy__reload_project_1.png
+[groovy__delete_main_1]: docs/images/groovy__delete_main_1.png
+[groovy__create_source_roots_1]: docs/images/groovy__create_source_roots_1.png
+[groovy__new_groovy_class_1]: docs/images/groovy__new_groovy_class_1.png
+[groovy__new_groovy_class_2]: docs/images/groovy__new_groovy_class_2.png
+[groovy__new_groovy_class_3]: docs/images/groovy__new_groovy_class_3.png
+[groovy__main_groovy_1]: docs/images/groovy__main_groovy_1.png
+[groovy__run_file_1]: docs/images/groovy__run_file_1.png
+[groovy__run_file_output_1]: docs/images/groovy__run_file_output_1.png
+[groovy__browser_hello_1]: docs/images/groovy__browser_hello_1.png
+[groovy__new_json_data_1]: docs/images/groovy__new_json_data_1.png
+[groovy__new_json_data_2]: docs/images/groovy__new_json_data_2.png
+[groovy__new_json_data_3]: docs/images/groovy__new_json_data_3.png
+[groovy__browser_employees_1]: docs/images/groovy__browser_employees_1.png
+[groovy__path_to_data_1]: docs/images/groovy__path_to_data_1.png
+[groovy__gradle_install_dist_1]: docs/images/groovy__gradle_install_dist_1.png
+[groovy__run_local_1]: docs/images/groovy__run_local_1.png
+[groovy__new_json_manifest_1]: docs/images/groovy__new_json_manifest_1.png
+[groovy__new_json_manifest_2]: docs/images/groovy__new_json_manifest_2.png
+[groovy__new_json_manifest_3]: docs/images/groovy__new_json_manifest_3.png
+[groovy__gradle_dist_accs_1]: docs/images/groovy__gradle_dist_accs_1.png
+[groovy__gradle_dist_accs_2]: docs/images/groovy__gradle_dist_accs_2.png
 
