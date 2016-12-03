@@ -503,5 +503,5 @@ Please make sure that both the _data.json_ and _manifest.json_ files are located
 [groovy__new_json_manifest_3]: docs/images/groovy__new_json_manifest_3.png
 [groovy__gradle_dist_accs_1]: docs/images/groovy__gradle_dist_accs_1.png
 [groovy__gradle_dist_accs_2]: docs/images/groovy__gradle_dist_accs_2.png
-[groovy__gradle_dist_accs_2]: docs/images/groovy__gradle_dist_accs_3.png
+[groovy__gradle_dist_accs_3]: docs/images/groovy__gradle_dist_accs_3.png
 
