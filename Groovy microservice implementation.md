@@ -96,7 +96,7 @@ A new empty Groovy class implementation will open:
 
 ![Empty Groovy class][groovy__new_groovy_class_3]
 
-For the implementation of the REST service we are going to use the ![Spark Java framework](http://sparkjava.com/). Delete the _class Main {...}_ section in the code and paste the following two lines:
+For the implementation of the REST service we are going to use the [Spark Java framework](http://sparkjava.com/). Delete the _class Main {...}_ section in the code and paste the following two lines:
 
 ```groovy
 import static spark.Spark.*
