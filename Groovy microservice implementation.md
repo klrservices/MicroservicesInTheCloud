@@ -6,5 +6,12 @@ We start with the basics - let's create a traditional "Hello World" application 
 ### Creating Hello World application in Groovy and Spark
 Open NetBeans and create a new project:
 
-![enter image description here](docs/images/groovy__new_project_1.png)
+![New project][groovy__new_project_1]
+
+Choose **Gradle** Category and **Single Gradle Project**
+
+
+
+[groovy__new_project_1]: docs/images/groovy__new_project_1.png
+
 
