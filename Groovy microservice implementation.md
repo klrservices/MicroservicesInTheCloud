@@ -118,7 +118,7 @@ NetBeans will launch the class and the _Output_ window will show the console out
 
 If you can see the _INFO org.eclipse.jetty.server.Server - Started_ at the bottom of the console output it means that the REST service is up and running. You can easily test it - open the browser and paste the following url:
 
-![http://localhost:4567/rest/hello](http://localhost:4567/rest/hello)
+[http://localhost:4567/rest/hello](http://localhost:4567/rest/hello)
 
 You should see our Hello World! message as a only static output:
 
