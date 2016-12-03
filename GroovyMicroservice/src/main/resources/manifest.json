@@ -1,0 +1,12 @@
+{
+    "runtime": {
+        "majorVersion": "8"
+    },
+    "command": "bash bin/${name}",
+    "release": {
+        "build": "${buildId}",
+        "commit": "${commitString}",
+        "version": "${version}"
+    },
+    "notes": "${description}"
+}

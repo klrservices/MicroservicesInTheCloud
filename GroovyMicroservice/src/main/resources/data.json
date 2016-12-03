@@ -1,0 +1,19 @@
+{
+    "employees": {
+        "100": {
+            "employeeId": 100,
+            "firstName": "John",
+            "lastName": "Smith"
+        },
+        "101": {
+            "employeeId": 101,
+            "firstName": "Jack",
+            "lastName": "Novak"                
+        },
+        "102": {
+            "employeeId": 102,
+            "firstName": "Julia",
+            "lastName": "Roberts"                
+        }
+    }
+}
