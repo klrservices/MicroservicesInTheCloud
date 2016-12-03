@@ -374,7 +374,7 @@ You may want to play with GET and PUT operations to see how the logic works. It 
 
 Oracle ACCS allows running any Java SE (or Node.js or PHP - more to come) application, the only requirement is the correct packaging. To put it simply, we need to create a ZIP with **all** necessary artifacts (including direct and transient libraries as well as configuration/runtime/data files) plus additional file called _manifest.json_ to define some ACCS metadata. You can find more details in the [Packaging Your Application](http://docs.oracle.com/en/cloud/paas/app-container-cloud/dvcjv/packaging-your-application.html#GUID-5A386AAA-2187-4516-85B7-058BF7A5BC34) section of the ACCS docs.
  In our tutorial we use the power of Gradle to prepare such package with minimum configuration effort. More important - the same packaging task can be used later on in Oracle Developer Cloud Service to automatically build and package our artifacts and then deploy it to the ACCS. We start with a small fix to our current code. You may notice that the path to the _data.json_ file is hardcoded as _src/main/resources/data.json_. This is a problem - the source directory exists in our development environment, but will not be (by default) included in any production package. We need to shorten it to just _data.json_ - the rest should be done by the packaging task itself.  
- Open the _Main.groovy_ file and change the line defininf the _file_ variable as follows:
+ Open the _Main.groovy_ file and change the line defining the _file_ variable as follows:
 
 ```groovy
 def file = new File('data.json')
