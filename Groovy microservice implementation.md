@@ -474,6 +474,7 @@ You should see the output similar to the following:
 This task creates a ZIP from the _accs_ distribution (with all custom enhancements from the _build.gradle_ file). You can check the content of the ZIP and verify if everything has been correctly packaged by opening the archive with any zip tool (it is located in the _build/distributions_ directory). The archive should look similar to the following screenshot:
 
 ![Distribution archive][groovy__gradle_dist_accs_2]
+![Distribution archive][groovy__gradle_dist_accs_3]
 
 Please make sure that both the _data.json_ and _manifest.json_ files are located in the root of the archive. If this is the case, you can proceed to deploying our application to the ACCS (this task is covered in another lab).
 
@@ -502,4 +503,5 @@ Please make sure that both the _data.json_ and _manifest.json_ files are located
 [groovy__new_json_manifest_3]: docs/images/groovy__new_json_manifest_3.png
 [groovy__gradle_dist_accs_1]: docs/images/groovy__gradle_dist_accs_1.png
 [groovy__gradle_dist_accs_2]: docs/images/groovy__gradle_dist_accs_2.png
+[groovy__gradle_dist_accs_2]: docs/images/groovy__gradle_dist_accs_3.png
 
