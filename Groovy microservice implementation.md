@@ -71,6 +71,32 @@ task openUrlInBrowser << {
 }
 ```
 
+To apply the changes in the NetBeans right-click on the project root node in the Projects tab and choose **Reload Project**
+
+![Reload project][groovy__reload_project_1]
+
+The main logic in our little application is going to be implemented in Groovy, however, the new project wizard created automatically a Java class with a name we provided: **microservice.Main.java**. We need to delete that class to replace it with its Groovy implementation. In the Projects tab find the **Main.java** class (_Source Packages [Java]->microservice->Main.java_), right-click it and choose **Delete**:
+
+![Delete Main.java class][groovy__delete_main_1]
+
+Then we need to add a similar Groovy code. First let's make the Groovy source branch visible - the build.gradle already contains the groovy plugin declaration but there are no source directories associated with Groovy code yet. Right-click the project root and choose **Source roots -> Create source roots**. 
+
+![Create source roots][groovy__create_source_roots_1]
+
+You should be able to see now the _Source Packages [Groovy]_ now. Right-click on it and choose **New->Groovy Class**:
+
+![Create new groovy class][groovy__new_groovy_class_1]
+
+Enter the class name (**Main**) and the package (**microservice**):
+
+![Enter groovy class name and package][groovy__new_groovy_class_2]
+
+Then click **Finish**.
+A new empty Groovy class implementation will open:
+
+![Empty Groovy class][groovy__new_groovy_class_3]
+
+
 [groovy__new_project_1]: docs/images/groovy__new_project_1.png
 [groovy__new_project_2]: docs/images/groovy__new_project_2.png
 [groovy__new_project_3]: docs/images/groovy__new_project_3.png
