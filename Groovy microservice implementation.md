@@ -346,7 +346,136 @@ before {request, response ->
 
 Finally we need to remember about setting the correct CORS headers - this is necessary as we are going to use our REST service in another JavaScript front-end application, which should and will be running on completely different host (especially - while testing - on localhost). Without setting the CORS headers the browser would block the communication from the page to our REST service.
 
+Having finished with our business logic let's test it! Right-click on the Main.groovy script and choose **Run File**. When the service starts, open the followin url in the browser:
 
+[http://localhost:4567/rest/employees](http://localhost:4567/rest/employees)
+
+You may also launch the browser and open this URL entirely from the command line - the following example is one of many Gradle goodies we may use to automate common tasks and improve our productivity. Open the command line and go to the main project folder. Then enter the following command:
+
+```shell
+gradle oUIB
+```
+
+Then watch the magic! For the those curious on how it works please revisit the _build.gradle_ file and pay attention to the following snippet (at the bottom of the page):
+
+```groovy
+task openUrlInBrowser << {
+    java.awt.Desktop.desktop.browse "http://localhost:4567/rest/employees".toURI()
+}
+```
+
+Getting back to our browser - here is a screenshot showing how it should look like:
+
+![Employees data in browser][groovy__browser_employees_1]
+
+You may want to play with GET and PUT operations to see how the logic works. It is recommended to use some tools like [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) to make it a little bit easier.
+
+### Creating a package for ACCS
+
+Oracle ACCS allows running any Java SE (or Node.js or PHP - more to come) application, the only requirement is the correct packaging. To put it simply, we need to create a ZIP with **all** necessary artifacts (including direct and transient libraries as well as configuration/runtime/data files) plus additional file called _manifest.json_ to define some ACCS metadata. You can find more details in the [Packaging Your Application](http://docs.oracle.com/en/cloud/paas/app-container-cloud/dvcjv/packaging-your-application.html#GUID-5A386AAA-2187-4516-85B7-058BF7A5BC34) section of the ACCS docs.
+ In our tutorial we use the power of Gradle to prepare such package with minimum configuration effort. More important - the same packaging task can be used later on in Oracle Developer Cloud Service to automatically build and package our artifacts and then deploy it to the ACCS. We start with a small fix to our current code. You may notice that the path to the _data.json_ file is hardcoded as _src/main/resources/data.json_. This is a problem - the source directory exists in our development environment, but will not be (by default) included in any production package. We need to shorten it to just _data.json_ - the rest should be done by the packaging task itself.  
+ Open the _Main.groovy_ file and change the line defininf the _file_ variable as follows:
+
+```groovy
+def file = new File('data.json')
+```
+
+The code around this line should look like this:
+
+![Fixed path to data.json][groovy__path_to_data_1]
+
+Once changed we will not be able to run the code from the IDE anymore (unless we copy this file to the project root to match the new path). Instead lets use the Gradle _application_ plugin defined in our build script to install and run the app from the command line. Stop the application in the IDE (if it is still running), open the command line, go to the project root and enter the following command:
+
+```shell
+gradle installAccsDist
+```
+
+You should see the console output similar to the screenshot below:
+
+![Gradle install output][groovy__gradle_install_dist_1]
+
+The job of this task (_installAccsDist_) is to: 
+
+* create an installation of the application with the standard folder layout, as described in the _application_ Gradle plugin (check out the [docs](https://docs.gradle.org/current/userguide/application_plugin.html))
+* amend this installation with a custom logic defined in an additonal accs distribution configuration
+
+The configuration of the above mentioned accs distribution is defined in the _build.gradle_ as follows:
+
+```groovy
+distributions {
+    accs {
+        contents {
+            into ('/') {
+                from (fileTree(dir: file('build/resources/main'), include: '*.json')) {
+                    expand(project.properties)
+                }
+                from installDist
+            }
+        }
+    }
+}
+```
+As you can figure out, in addition to the default installation (_lib_ and _bin_ folders) we copy all the .json files found in the resources directory to the root folder of the resulting application installation. This explains our change in the code (shortening the path of _data.json_).  
+If you want to test the installation open a command line (or re-use the existing one - make sure you are in the project root folder) and enter following commands (if you use Windows):
+
+```
+cd build\install\GroovyMicroservice-accs
+bin\GroovyMicroservice.bat
+```
+
+or on Linux/Mac/Unix:
+
+```
+cd build/install/GroovyMicroservice-accs
+./bin/GroovyMicroservice
+```
+
+The app should start as usual, showing the following output:
+
+![Run from installation][groovy__run_local_1] 
+
+Our microservice is almost ready to be deployed to the ACCS. The only missing part is the aforementioned manifest file with ACCS metadata. Let's create it now.  
+Go back to your NetBeans, right-click the _Resources [Main] -> default package_ node and choose **New->JSON File...**:
+
+![New manifest.json file][groovy__new_json_manifest_1]
+
+Enter the name **manifest** (without .json extention) and click **Finish**:
+
+![Manifest.json name][groovy__new_json_manifest_2]
+
+Then replace the default content with the following snippet:
+
+```json
+{
+    "runtime": {
+        "majorVersion": "8"
+    },
+    "command": "bash bin/${name}",
+    "release": {
+        "build": "${buildId}",
+        "commit": "${commitString}",
+        "version": "${version}"
+    },
+    "notes": "${description}"
+}
+```
+You can see a basic manifest structure allowing us to pass necessary information to the ACCS during the deployment. This file should be placed in the **root** of the ZIP package - this is done by the amended installation task we explained before. You may notice that most attributes in this file are really tokens to be replaced (following the Groovy pattern) - this is handled by the _...expand(project.properties)..._ construct of the installation task definition, which provides a map with all project properties to be expanded during the installation.  
+The most important setting here is the _command_ part - it is taken literary from here and executed in the target ACCS container just after un-zipping the contents of the package. The command should start our application. After executing the command, the ACCS will verify if the deployment was successful by checking if there is any process listening on the host and port provided by the **HOSTNAME** and **PORT** environment variables. If no listening process is detected, the deployment is marked as failed.  
+Now, in order to create the package, open the command line, go to the project root and enter the following command:
+
+```
+gradle accsDistZip
+```
+
+You should see the output similar to the following:
+
+![Distribution task output][groovy__gradle_dist_accs_1]
+
+This task creates a ZIP from the _accs_ distribution (with all custom enhancements from the _build.gradle_ file). You can check the content of the ZIP and verify if everything has been correctly packaged by opening the archive with any zip tool (it is located in the _build/distributions_ directory). The archive should look similar to the following screenshot:
+
+![Distribution archive][groovy__gradle_dist_accs_2]
+
+Please make sure that both the _data.json_ and _manifest.json_ files are located in the root of the archive. If this is the case, you can proceed to deploying our application to the ACCS (this task is covered in another lab).
 
 [groovy__new_project_1]: docs/images/groovy__new_project_1.png
 [groovy__new_project_2]: docs/images/groovy__new_project_2.png
