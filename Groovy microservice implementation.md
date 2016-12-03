@@ -103,6 +103,9 @@ import static spark.Spark.*
 
 get '/rest/hello', { req, res -> 'Hello World!' }
 ```
+The first line imports a static class _spark.Spark_ which then is going to be used to define the _get_ verb and its implementation as a Groovy closure returning a static string: _Hello World!_. For more information on how to use Spark with Groovy (and Raspberry Pi!) please check the [Spark on Raspberry Pi](https://sparktutorials.github.io/2015/07/17/sparkberry-pi.html) tutorial.
+
+
 
 [groovy__new_project_1]: docs/images/groovy__new_project_1.png
 [groovy__new_project_2]: docs/images/groovy__new_project_2.png
