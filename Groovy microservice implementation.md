@@ -108,11 +108,21 @@ The final code should look like this:
 
 ![Groovy Hello World implementation][groovy__main_groovy_1]
 
-In order to test our code simple right-click anywhere in the code and choose **Run file**:
+In order to test our code simply right-click anywhere in the code and choose **Run file**:
 
 ![Run Groovy Hello World REST example][groovy__run_file_1]
 
+NetBeans will launch the class and the _Output_ window will show the console output:
 
+![Hello World output][groovy__run_file_output_1]
+
+If you can see the _INFO org.eclipse.jetty.server.Server - Started_ at the bottom of the console output it means that the REST service is up and running. You can easily test it - open the browser and paste the following url:
+
+![http://localhost:4567/rest/hello](http://localhost:4567/rest/hello)
+
+You should see our Hello World! message as a only static output:
+
+![Browser showing Hello World!][groovy__browser_hello_1]
 
 
 [groovy__new_project_1]: docs/images/groovy__new_project_1.png
