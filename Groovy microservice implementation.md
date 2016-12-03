@@ -16,7 +16,60 @@ Enter the name of the project: **GroovyMicroservice** and the main class: **micr
 
 ![Enter the name and main class][groovy__new_project_3]
 
-Then click **Finish**
+Then click **Finish**  
+The project will open in NetBeans. The next step is to define the proper gradle build script. Open the **build.gradle** file in the NetBeans and replace its content with the following configuration:
+
+```groovy
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+sourceCompatibility = '1.8'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+version = '1.0'
+description = '''Spark Web App developed with Groovy'''
+ext.buildId =  new Date().format('yyyy-MM-dd')
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'microservice.Main'
+}
+
+if (!hasProperty('commitString')) {
+    ext.commitString = 'Initial version'
+}
+
+mainClassName = 'microservice.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    compile 'com.sparkjava:spark-core:2.5'
+    compile 'org.slf4j:slf4j-simple:1.7.21'
+
+    testCompile group: 'junit', name: 'junit', version: '4.10'
+}
+
+distributions {
+    accs {
+        contents {
+            into ('/') {
+                from (fileTree(dir: file('build/resources/main'), include: '*.json')) {
+                    expand(project.properties)
+                }
+                from installDist
+            }
+        }
+    }
+}
+
+task openUrlInBrowser << {
+    java.awt.Desktop.desktop.browse "http://localhost:4567/rest/employees".toURI()
+}
+```
 
 [groovy__new_project_1]: docs/images/groovy__new_project_1.png
 [groovy__new_project_2]: docs/images/groovy__new_project_2.png
