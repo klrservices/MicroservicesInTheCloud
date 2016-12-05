@@ -83,7 +83,7 @@ Then we need to add a similar Groovy code. First let's make the Groovy source br
 
 ![Create source roots][groovy__create_source_roots_1]
 
-You should be able to see now the _Source Packages [Groovy]_ now. Right-click on it and choose **New->Groovy Class**:
+You should be able to see the _Source Packages [Groovy]_ now. Right-click on it and choose **New->Groovy Class**:
 
 ![Create new groovy class][groovy__new_groovy_class_1]
 
@@ -269,7 +269,7 @@ int listenPort = accsPort.orElse("4567") as int
 ```
 
 This block of code tries to obtain the hostname and port we should listen on from two environment variables: **HOSTNAME** and **PORT**. When we deploy our microservice to the Oracle Application Container Cloud Service we should not listen on any arbitrary port, but instead those two variables will carry the information about the container we are running in. You will find more information in the [Design Consideration](http://docs.oracle.com/en/cloud/paas/app-container-cloud/dvcjv/design-considerations.html#GUID-06172FD2-778D-4882-9BE9-0C1ED9484E8E) section of the ACCS documentation.
-To make it easier to run our app both in local and cloud environment, we use the Java 8 Optional class to try to fetch the hostname and port, and if they are not available we fall back to default _localhost:4567_.
+To make it easier to run our app both in local and cloud environment, we use the Java 8 *Optional* class to try to fetch the hostname and port, and if they are not available we fall back to default _localhost:4567_.
 
 * Setting the hostname and port in the Spark framework
 
@@ -344,7 +344,7 @@ before {request, response ->
 }
 ```
 
-Finally we need to remember about setting the correct CORS headers - this is necessary as we are going to use our REST service in another JavaScript front-end application, which should (and will) be running on completely different host (especially - while testing - on localhost). Without setting the CORS headers the browser would block the communication from the page to our REST service.
+Finally we need to remember about setting the correct CORS headers - this is necessary as we are going to use our REST service in another JavaScript front-end application, which should (and will) be running on completely different host (specifically - while testing - on localhost). Without setting the CORS headers the browser would block the communication from the page to our REST service.
 
 Having finished with our business logic let's test it! Right-click on the Main.groovy script and choose **Run File**. When the service starts, open the following url in the browser:
 
@@ -372,8 +372,9 @@ You may want to play with GET and PUT operations to see how the logic works. It 
 
 ### Creating a package for ACCS
 
-Oracle ACCS allows running any Java SE (or Node.js or PHP - more to come) application, the only requirement is the correct packaging. To put it simply, we need to create a ZIP with **all** necessary artifacts (including direct and transient libraries as well as configuration/runtime/data files) plus additional file called _manifest.json_ to define some ACCS metadata. You can find more details in the [Packaging Your Application](http://docs.oracle.com/en/cloud/paas/app-container-cloud/dvcjv/packaging-your-application.html#GUID-5A386AAA-2187-4516-85B7-058BF7A5BC34) section of the ACCS docs.
- In our tutorial we use the power of Gradle to prepare such package with minimum configuration effort. More important - the same packaging task can be used later on in Oracle Developer Cloud Service to automatically build and package our artifacts and then deploy it to the ACCS. We start with a small fix to our current code. You may notice that the path to the _data.json_ file is hardcoded as _src/main/resources/data.json_. This is a problem - the source directory exists in our development environment, but will not be (by default) included in any production package. We need to shorten it to just _data.json_ - the rest should be done by the packaging task itself.  
+Oracle ACCS allows running any Java SE (or Node.js or PHP - more to come) application, the only requirement is the correct packaging. To put it simply, we need to create a ZIP with **all** necessary artifacts (including direct and transient dependent libraries as well as configuration/runtime/data files) plus an additional file called _manifest.json_ to define some ACCS metadata. You can find more details in the [Packaging Your Application](http://docs.oracle.com/en/cloud/paas/app-container-cloud/dvcjv/packaging-your-application.html#GUID-5A386AAA-2187-4516-85B7-058BF7A5BC34) section of the ACCS docs.
+ In our tutorial we use the power of Gradle to prepare such package with minimum configuration effort. More important - the same packaging task can be used later on in Oracle Developer Cloud Service to automatically build and package our artifacts and then deploy it to the ACCS.  
+ We start with a small fix to our current code. You may notice that the path to the _data.json_ file is hardcoded as _src/main/resources/data.json_. This is a problem - the source directory exists in our development environment, but will not be (by default) included in any production package. We need to shorten it to just _data.json_ - the rest should be done by the packaging task itself.  
  Open the _Main.groovy_ file and change the line defining the _file_ variable as follows:
 
 ```groovy
