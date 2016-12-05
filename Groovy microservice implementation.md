@@ -130,7 +130,7 @@ Next step involves implementing a business logic to serve the employees data. Le
 
 ![Create data.json file][groovy__new_json_data_1]
 
-In the dialog window enter the file name (**data** - without the .json extension) and make sire the folder is _src\main\resources_:
+In the dialog window enter the file name (**data** - without the .json extension) and make sure the folder is _src\main\resources_:
 
 ![Enter the file name: data.json][groovy__new_json_data_2]
 
@@ -159,7 +159,7 @@ When the new data.json file opens in the NetBeans editor replace its content wit
 }
 ```
 
-The editor should look like in the screeshot below:
+The editor should look like in the screenshot below:
 
 ![Data.json in the NetBeans editor][groovy__new_json_data_3]
 
@@ -344,9 +344,9 @@ before {request, response ->
 }
 ```
 
-Finally we need to remember about setting the correct CORS headers - this is necessary as we are going to use our REST service in another JavaScript front-end application, which should and will be running on completely different host (especially - while testing - on localhost). Without setting the CORS headers the browser would block the communication from the page to our REST service.
+Finally we need to remember about setting the correct CORS headers - this is necessary as we are going to use our REST service in another JavaScript front-end application, which should (and will) be running on completely different host (especially - while testing - on localhost). Without setting the CORS headers the browser would block the communication from the page to our REST service.
 
-Having finished with our business logic let's test it! Right-click on the Main.groovy script and choose **Run File**. When the service starts, open the followin url in the browser:
+Having finished with our business logic let's test it! Right-click on the Main.groovy script and choose **Run File**. When the service starts, open the following url in the browser:
 
 [http://localhost:4567/rest/employees](http://localhost:4567/rest/employees)
 
@@ -427,7 +427,7 @@ or on Linux/Mac/Unix:
 
 ```
 cd build/install/GroovyMicroservice-accs
-./bin/GroovyMicroservice
+bash ./bin/GroovyMicroservice
 ```
 
 The app should start as usual, showing the following output:
@@ -471,7 +471,7 @@ You should see the output similar to the following:
 
 ![Distribution task output][groovy__gradle_dist_accs_1]
 
-This task creates a ZIP from the _accs_ distribution (with all custom enhancements from the _build.gradle_ file). You can check the content of the ZIP and verify if everything has been correctly packaged by opening the archive with any zip tool (it is located in the _build/distributions_ directory). The archive should look similar to the following screenshot:
+This task creates a ZIP from the _accs_ distribution (with all custom enhancements from the _build.gradle_ file). You can check the content of the ZIP and verify if everything has been correctly packaged by opening the archive with any zip tool (it is located in the _build/distributions_ directory). The archive should look similar to the following screenshots:
 
 ![Distribution archive][groovy__gradle_dist_accs_2]
 ![Distribution archive][groovy__gradle_dist_accs_3]
