@@ -1,7 +1,12 @@
 # Creating a simple REST microservice
 
 This tutorial shows how to implement a simple REST based microservice using Groovy, Spark Java and Gradle. The application we create can be later on uploaded to the Oracle Developer Cloud Service and a job can be created to automatically build and deploy the package to the Oracle Application Container Cloud Service.
-We start with the basics - let's create a traditional "Hello World" application using technologies mentioned before: Groovy, Spark Java framework and Gradle as a build tool. As an IDE we will use NetBeans 8.2 with a Groovy plugin installed.
+We start with the basics - let's create a traditional "Hello World" application using technologies mentioned before: Groovy, Spark Java framework and Gradle as a build tool. As an IDE we will use NetBeans 8.2 with a Groovy plugin installed. You need to install the following software:
+
+* [Java SDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [NetBeans 8.2](https://netbeans.org/downloads/)
+* [Gradle (the latest version)](https://gradle.org/gradle-download/)
+* Groovy plugin for NetBeans
 
 ### Creating Hello World application in Groovy and Spark
 Open NetBeans and create a new project:
