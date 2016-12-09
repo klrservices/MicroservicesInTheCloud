@@ -1,7 +1,12 @@
 # Creating a simple REST microservice
 
 This tutorial shows how to implement a simple REST based microservice using Groovy, Spark Java and Gradle. The application we create can be later on uploaded to the Oracle Developer Cloud Service and a job can be created to automatically build and deploy the package to the Oracle Application Container Cloud Service.
-We start with the basics - let's create a traditional "Hello World" application using technologies mentioned before: Groovy, Spark Java framework and Gradle as a build tool. As an IDE we will use NetBeans 8.2 with a Groovy plugin installed.
+We start with the basics - let's create a traditional "Hello World" application using technologies mentioned before: Groovy, Spark Java framework and Gradle as a build tool. As an IDE we will use NetBeans 8.2 with a Groovy plugin installed. You need to install the following software:
+
+* [Java SDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [NetBeans 8.2](https://netbeans.org/downloads/)
+* [Gradle (the latest version)](https://gradle.org/gradle-download/)
+* Groovy plugin for NetBeans
 
 ### Creating Hello World application in Groovy and Spark
 Open NetBeans and create a new project:
@@ -83,7 +88,7 @@ Then we need to add a similar Groovy code. First let's make the Groovy source br
 
 ![Create source roots][groovy__create_source_roots_1]
 
-You should be able to see now the _Source Packages [Groovy]_ now. Right-click on it and choose **New->Groovy Class**:
+You should be able to see the _Source Packages [Groovy]_ now. Right-click on it and choose **New->Groovy Class**:
 
 ![Create new groovy class][groovy__new_groovy_class_1]
 
@@ -130,7 +135,7 @@ Next step involves implementing a business logic to serve the employees data. Le
 
 ![Create data.json file][groovy__new_json_data_1]
 
-In the dialog window enter the file name (**data** - without the .json extension) and make sire the folder is _src\main\resources_:
+In the dialog window enter the file name (**data** - without the .json extension) and make sure the folder is _src\main\resources_:
 
 ![Enter the file name: data.json][groovy__new_json_data_2]
 
@@ -159,7 +164,7 @@ When the new data.json file opens in the NetBeans editor replace its content wit
 }
 ```
 
-The editor should look like in the screeshot below:
+The editor should look like in the screenshot below:
 
 ![Data.json in the NetBeans editor][groovy__new_json_data_3]
 
@@ -269,7 +274,7 @@ int listenPort = accsPort.orElse("4567") as int
 ```
 
 This block of code tries to obtain the hostname and port we should listen on from two environment variables: **HOSTNAME** and **PORT**. When we deploy our microservice to the Oracle Application Container Cloud Service we should not listen on any arbitrary port, but instead those two variables will carry the information about the container we are running in. You will find more information in the [Design Consideration](http://docs.oracle.com/en/cloud/paas/app-container-cloud/dvcjv/design-considerations.html#GUID-06172FD2-778D-4882-9BE9-0C1ED9484E8E) section of the ACCS documentation.
-To make it easier to run our app both in local and cloud environment, we use the Java 8 Optional class to try to fetch the hostname and port, and if they are not available we fall back to default _localhost:4567_.
+To make it easier to run our app both in local and cloud environment, we use the Java 8 *Optional* class to try to fetch the hostname and port, and if they are not available we fall back to default _localhost:4567_.
 
 * Setting the hostname and port in the Spark framework
 
@@ -344,9 +349,9 @@ before {request, response ->
 }
 ```
 
-Finally we need to remember about setting the correct CORS headers - this is necessary as we are going to use our REST service in another JavaScript front-end application, which should and will be running on completely different host (especially - while testing - on localhost). Without setting the CORS headers the browser would block the communication from the page to our REST service.
+Finally we need to remember about setting the correct CORS headers - this is necessary as we are going to use our REST service in another JavaScript front-end application, which should (and will) be running on completely different host (specifically - while testing - on localhost). Without setting the CORS headers the browser would block the communication from the page to our REST service.
 
-Having finished with our business logic let's test it! Right-click on the Main.groovy script and choose **Run File**. When the service starts, open the followin url in the browser:
+Having finished with our business logic let's test it! Right-click on the Main.groovy script and choose **Run File**. When the service starts, open the following url in the browser:
 
 [http://localhost:4567/rest/employees](http://localhost:4567/rest/employees)
 
@@ -372,8 +377,9 @@ You may want to play with GET and PUT operations to see how the logic works. It 
 
 ### Creating a package for ACCS
 
-Oracle ACCS allows running any Java SE (or Node.js or PHP - more to come) application, the only requirement is the correct packaging. To put it simply, we need to create a ZIP with **all** necessary artifacts (including direct and transient libraries as well as configuration/runtime/data files) plus additional file called _manifest.json_ to define some ACCS metadata. You can find more details in the [Packaging Your Application](http://docs.oracle.com/en/cloud/paas/app-container-cloud/dvcjv/packaging-your-application.html#GUID-5A386AAA-2187-4516-85B7-058BF7A5BC34) section of the ACCS docs.
- In our tutorial we use the power of Gradle to prepare such package with minimum configuration effort. More important - the same packaging task can be used later on in Oracle Developer Cloud Service to automatically build and package our artifacts and then deploy it to the ACCS. We start with a small fix to our current code. You may notice that the path to the _data.json_ file is hardcoded as _src/main/resources/data.json_. This is a problem - the source directory exists in our development environment, but will not be (by default) included in any production package. We need to shorten it to just _data.json_ - the rest should be done by the packaging task itself.  
+Oracle ACCS allows running any Java SE (or Node.js or PHP - more to come) application, the only requirement is the correct packaging. To put it simply, we need to create a ZIP with **all** necessary artifacts (including direct and transient dependent libraries as well as configuration/runtime/data files) plus an additional file called _manifest.json_ to define some ACCS metadata. You can find more details in the [Packaging Your Application](http://docs.oracle.com/en/cloud/paas/app-container-cloud/dvcjv/packaging-your-application.html#GUID-5A386AAA-2187-4516-85B7-058BF7A5BC34) section of the ACCS docs.
+ In our tutorial we use the power of Gradle to prepare such package with minimum configuration effort. More important - the same packaging task can be used later on in Oracle Developer Cloud Service to automatically build and package our artifacts and then deploy it to the ACCS.  
+ We start with a small fix to our current code. You may notice that the path to the _data.json_ file is hardcoded as _src/main/resources/data.json_. This is a problem - the source directory exists in our development environment, but will not be (by default) included in any production package. We need to shorten it to just _data.json_ - the rest should be done by the packaging task itself.  
  Open the _Main.groovy_ file and change the line defining the _file_ variable as follows:
 
 ```groovy
@@ -427,7 +433,7 @@ or on Linux/Mac/Unix:
 
 ```
 cd build/install/GroovyMicroservice-accs
-./bin/GroovyMicroservice
+bash ./bin/GroovyMicroservice
 ```
 
 The app should start as usual, showing the following output:
@@ -471,9 +477,10 @@ You should see the output similar to the following:
 
 ![Distribution task output][groovy__gradle_dist_accs_1]
 
-This task creates a ZIP from the _accs_ distribution (with all custom enhancements from the _build.gradle_ file). You can check the content of the ZIP and verify if everything has been correctly packaged by opening the archive with any zip tool (it is located in the _build/distributions_ directory). The archive should look similar to the following screenshot:
+This task creates a ZIP from the _accs_ distribution (with all custom enhancements from the _build.gradle_ file). You can check the content of the ZIP and verify if everything has been correctly packaged by opening the archive with any zip tool (it is located in the _build/distributions_ directory). The archive should look similar to the following screenshots:
 
 ![Distribution archive][groovy__gradle_dist_accs_2]
+![Distribution archive][groovy__gradle_dist_accs_3]
 
 Please make sure that both the _data.json_ and _manifest.json_ files are located in the root of the archive. If this is the case, you can proceed to deploying our application to the ACCS (this task is covered in another lab).
 
@@ -502,4 +509,5 @@ Please make sure that both the _data.json_ and _manifest.json_ files are located
 [groovy__new_json_manifest_3]: docs/images/groovy__new_json_manifest_3.png
 [groovy__gradle_dist_accs_1]: docs/images/groovy__gradle_dist_accs_1.png
 [groovy__gradle_dist_accs_2]: docs/images/groovy__gradle_dist_accs_2.png
+[groovy__gradle_dist_accs_3]: docs/images/groovy__gradle_dist_accs_3.png
 
