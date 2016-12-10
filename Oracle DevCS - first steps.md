@@ -16,32 +16,30 @@ When you finish all steps described above you will have an empty project with it
 > Note: you will have to install Git in your local environment first
 
 1. Create a local git repository
-Go to the root of your project, open the command line and type the following commands:
-```
-git init
-gradle clean
-git add .
-git commit -m 'Initial commit'
-```
+ Go to the root of your project, open the command line and type the following commands:
+ `git init`  
+ `gradle clean`  
+ `git add .`  
+ `git commit -m 'Initial commit'`
 2. (Optional - in case you don't have a local code yet) Clone the existing repo from GitHub:
-
-```
-git clone https://github.com/klrservices/MicroservicesInTheCloud.git
-```
+ 
+ ```
+ git clone https://github.com/klrservices/MicroservicesInTheCloud.git
+ ```
 3. Add a remote DevCS repository
-For this step you need to have a URL of your DevCS repo. Type the following command:
+ For this step you need to have a URL of your DevCS repo. Type the following command: 
 
-```
-git remote add devcs <Your_DevCS_repository.git>
-```
-The _devcs_ is an arbitrary name for your remote repo - if you performed step _2_ you can't use the default _origin_ name as it points to the GitHub repo.
-
+ ```
+ git remote add devcs <Your_DevCS_repository.git>
+ ```
+ The _devcs_ is an arbitrary name for your remote repo - if you performed step _2_ you can't use the default _origin_ name as it points to the GitHub repo.
+ 
 4. Push your code to DevCS
-Invoke the following command to push the project to the DevCS git repository:
+ Invoke the following command to push the project to the DevCS git repository:
 
-```
-git push -u devcs +master
-```
+ ```
+ git push -u devcs +master
+ ```
 
 For more information about using Git to work with DevCS please consult  the [Using Git in Oracle Developer Cloud Service](http://docs.oracle.com/en/cloud/paas/developer-cloud/csdcs/using-git-oracle-developer-cloud-service.html#GUID-B4C03296-8497-4356-8C74-2031D1FB96FC) documentation.
 
