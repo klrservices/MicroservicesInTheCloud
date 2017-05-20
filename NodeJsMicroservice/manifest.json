@@ -1,0 +1,12 @@
+{
+    "runtime": {
+        "majorVersion": "6"
+    },
+    "command": "node bin/www",
+    "release": {
+        "build": "${buildId}",
+        "commit": "${commitString}",
+        "version": "${version}"
+    },
+    "notes": "${description}"
+}
