@@ -44,6 +44,8 @@ distributions {
     }
 }
 
-task openUrlInBrowser << {
-    java.awt.Desktop.desktop.browse "http://localhost:4567/rest/employees".toURI()
+task openUrlInBrowser {
+    doLast {
+        java.awt.Desktop.desktop.browse "http://localhost:4567/rest/employees".toURI()
+    }
 }
