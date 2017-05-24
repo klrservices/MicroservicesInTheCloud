@@ -1,0 +1,17 @@
+<!--
+ Copyright (c) 2014, 2016, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+  <h3>Customers Content Area</h3>
+  <div>
+      <table id="table"    
+             data-bind="ojComponent: {component:'ojTable',
+                                 data: dataSource,
+                                 columns: [{headerText: 'Id',           field: 'employeeId'},
+                                           {headerText: 'First Name',   field: 'firstName'},
+                                           {headerText: 'Last Name',    field: 'lastName'}
+                                       ]}">
+      </table>
+  </div>
+</div>
